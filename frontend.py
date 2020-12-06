@@ -51,7 +51,6 @@ class Plots():
         df[xcol] = xvals
         df['Betting Accuracy']= accs
         df['Analysis Name'] = legend_data
-        print(df)
         return df
 
     def Moving_Average_Accuracy(self, Data, xcol):
@@ -88,5 +87,4 @@ class Plots():
         results_df['Betting Accuracy'] = accuracy_data
         results_df[xcol] = avg_ego_data
         results_df['Analysis Name'] = legend_data
-        print(results_df)
         return results_df

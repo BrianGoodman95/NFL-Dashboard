@@ -20,4 +20,3 @@ class Create_Directories():
                 print(f'Created Directory {folder_path}')
             except FileExistsError:
                 pass
-                # print(f'Directory {folder_path} already exists')

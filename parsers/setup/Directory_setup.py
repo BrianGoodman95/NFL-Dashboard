@@ -4,7 +4,7 @@ import os
 class Create_Directories():
     def __init__(self):
         dir_path = pathlib.Path().absolute()
-        if 'home/BGoodman95' in dir_path: #The Python Anywhere Dashboard
+        if 'home/BGoodman95' in str(dir_path): #The Python Anywhere Dashboard
             Data_Path = "NFL-Dashboard/data"
         else:
             Data_Path = "data"

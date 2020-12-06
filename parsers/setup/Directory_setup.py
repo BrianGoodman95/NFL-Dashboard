@@ -4,7 +4,10 @@ import os
 class Create_Directories():
     def __init__(self):
         dir_path = pathlib.Path().absolute()
-        Data_Path = "data"
+        if 'home/BGoodman95' in dir_path: #The Python Anywhere Dashboard
+            Data_Path = "NFL-Dashboard/data"
+        else:
+            Data_Path = "data"
         self.project_path = f'{str(dir_path)}/{Data_Path}'
         try:
             os.mkdir(Data_Path)

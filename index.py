@@ -12,8 +12,6 @@ from app import app
 from app import server
 
 import pandas as pd
-import threading
-import time
 
 import frontend
 from parsers.setup import Directory_setup, Dashboard_setup

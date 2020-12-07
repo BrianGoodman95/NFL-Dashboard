@@ -8,6 +8,7 @@ project_path = setup.project_path
 proj_path_parts = project_path.split('NFL-Dashboard/')
 project_path = f'{proj_path_parts[0]}{proj_path_parts[1]}'
 print(project_path)
+
 season, week = Dashboard_setup.This_Week()
 
 last_run_time = time.time()-55

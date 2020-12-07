@@ -5,8 +5,8 @@ from parsers import Prediction_Analysis
 from parsers.setup import Directory_setup, Dashboard_setup
 setup = Directory_setup.Create_Directories()
 project_path = setup.project_path
-proj_path_parts = project_path.split('NFL-Dashboard/')
-project_path = f'{proj_path_parts[0]}{proj_path_parts[1]}'
+proj_path_parts = project_path.split('NFL-Dashboard/N')
+project_path = f'{proj_path_parts[0]}N{proj_path_parts[1]}'
 print(project_path)
 
 season, week = Dashboard_setup.This_Week()

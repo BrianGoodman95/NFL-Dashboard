@@ -180,7 +180,7 @@ class NFL_Game_Predictor():
             targets = target_spreads[game]
             closest_target = 100 #some big number
             predictions.append('') #Add a placeholder for now
-            if "Missing" in targets or "Close" in targets: #Not a real target so skip
+            if "Missing" in targets or "Close" in targets or "Due To" in targets: #Not a real target so skip
                 predictions[game] = targets
             else:
                 for target_range in targets:
@@ -250,11 +250,11 @@ class NFL_Game_Predictor():
         model_path = self.project_path.split('/data')[0] + '/models'
         self.Map_DF = pd.read_csv(f'{model_path}/All Seasons Scores Grouped By WDVOA Diff.csv')
         #Setup the Helper
-        EGO_Analyzer = Prediction_Helper.EGO_Prediction(self.project_path, self.Map_DF)
+        EGO_Analyzer = Prediction_Helper.EGO_Prediction(raw_data_path, self.Map_DF)
         #Get the Map/Model
         self.Map = EGO_Analyzer.Map
         #Calculate what we need
-        self.Calculated_Data = EGO_Analyzer.Calculate_Data(df)
+        self.Calculated_Data = EGO_Analyzer.Calculate_Data(df, week)
         #Add to the DataFrame
         for key, val in self.Calculated_Data.items():
             df[key] = val

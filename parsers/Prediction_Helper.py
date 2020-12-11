@@ -448,10 +448,10 @@ class Team_Matching():
 
 
 class EGO_Prediction():
-    def __init__(self, project_path, Map_DF):
-        self.project_path = project_path
+    def __init__(self, raw_data_path, Map_DF):
+        self.raw_data_path = raw_data_path
         self.Map = self.Setup_Map(Map_DF)
-        self.target_egospr_diffs = [[-3.7,-1.5],[1.5,3.7]]
+        self.target_egospr_diffs = [[-30.7,-1.75],[1.75,30.7]]
 
     def Setup_Map(self, Map_DF):
         #Need to take all the DVOA_Diffs and map them to an EGO via the total home or away map
@@ -495,8 +495,15 @@ class EGO_Prediction():
 
         return target_spreads, pick
 
-    def Calculate_Data(self, df):
+    def Calculate_Data(self, df, week):
         self.Calculated_Data = {'WDVOA Delta':[], 'EGO':[], 'Spread to EGO Diff':[], 'Margin to EGO Diff':[], 'Target Spreads':[], 'Make Pick':[], 'Pick':[], 'Pick Right':[]}
+        #Read the Games to Avoid:
+        GTA_DF = pd.read_csv(f'{self.raw_data_path}/Games_To_Avoid.csv')
+        GTA_DF = GTA_DF[GTA_DF[f'Week {week}'].notna()]
+        GTA_DF_Sum = GTA_DF[['Ref Name', f'Week {week}']]
+        print(GTA_DF_Sum)
+        gta_teams = list(GTA_DF_Sum['Ref Name'])
+        gta_reasons = list(GTA_DF_Sum[f'Week {week}'])
         for team_row in range(len(list(df['Season']))):
             #Get needed stats for the team_row
             team = df.iloc[team_row]['Team']
@@ -521,8 +528,16 @@ class EGO_Prediction():
             #Get the spread and margin to EGO result difference
             self.Calculated_Data['Spread to EGO Diff'].append(EGO+spread)
             self.Calculated_Data['Margin to EGO Diff'].append(margin-EGO)
-            #Get Target Spread for each EGO
-            target_spreads,makePick = self.Target_Spreads(EGO, spread)
+            #Check if we should be betting on this game
+            for gta in range(0,len(gta_teams)):
+                if team in gta_teams[gta] or opp in gta_teams[gta]:
+                    #Supposed to avoid this game
+                    makePick = 0
+                    target_spreads = f'Unreliable Prediction Due To {gta_reasons[gta]}'
+                    break
+            else:
+                #Get Target Spread for each EGO
+                target_spreads,makePick = self.Target_Spreads(EGO, spread)
             if makePick == 0:
                 if abs(EGO+spread)>self.target_egospr_diffs[1][-1]: #If -2+(-3) then 
                     target_spreads = "Missing Something ..."

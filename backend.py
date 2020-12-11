@@ -16,6 +16,7 @@ season, week = Dashboard_setup.This_Week()
 #     if time.time() - last_run_time > 60:
 #         # Run the Weekly Predictor
 #         last_run_time = time.time()
+
 Data = Game_Predictor.NFL_Game_Predictor(project_path, week, season, updateType='Week')
 Spread_Target_DF = Data.Spread_Targets
 # print(f'Week {week} Evaluation:')

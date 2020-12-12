@@ -1,15 +1,15 @@
-Game,EGO,Spread,Spread Target,Pick
-IND @ TEN,-0.41,-1.0,"[-1.0, -3.5]",TEN
-HOU @ CLE,-1.67,4.0,"[5.5, 3.0]",HOU
-JAX @ GB,-8.73,14.0,"[12.5, 10.0]",
-PHI @ NYG,-1.15,-4.0,"[-0.5, -2.5]",
-TB @ CAR,3.27,-6.0,"[-5.0, -7.0]",CAR
-WAS @ DET,-4.79,3.0,"[3.5, 1.0]",DET
-BUF @ ARI,-2.34,2.5,"[6.0, 4.0]",
-DEN @ LV,-4.29,3.5,"[3.0, 0.5]",
-LAC @ MIA,-3.36,1.5,"[2.0, -0.5]",MIA
-CIN @ PIT,-10.14,7.0,"[8.5, 6.5]",PIT
-SEA @ LAR,-1.65,2.5,"[5.5, 3.0]",
-SF @ NO,-7.07,10.0,"[11.0, 8.5]",SF
-BAL @ NE,4.87,-7.0,"[-6.5, -8.5]",NE
-MIN @ CHI,-1.23,-3.0,"[-0.5, -2.5]",
+Game,Spread,EGO,Spread Target,Pick
+IND @ TEN,IND at -1.0,TEN wins by 0.41,Too Close To Call,
+HOU @ CLE,CLE at -4.0,CLE wins by 1.67,HOU (at +3.5 or better),HOU
+JAX @ GB,GB at -14.0,GB wins by 8.73,JAX (at +10.5 or better),JAX
+PHI @ NYG,PHI at -4.0,NYG wins by 1.15,NYG (at +0.5 or better),NYG
+TB @ CAR,TB at -6.0,TB wins by 3.27,CAR (at +5.0 or better),CAR
+WAS @ DET,DET at -3.0,DET wins by 4.79,DET (at -3.0 or better),DET
+BUF @ ARI,ARI at -2.5,ARI wins by 2.34,Too Close To Call,
+DEN @ LV,LV at -3.5,LV wins by 4.29,Too Close To Call,
+LAC @ MIA,MIA at -1.5,MIA wins by 3.36,MIA (at -1.5 or better),MIA
+CIN @ PIT,PIT at -7.0,PIT wins by 10.14,PIT (at -8.5 or better),PIT
+SEA @ LAR,LAR at -2.5,LAR wins by 1.65,Too Close To Call,
+SF @ NO,NO at -10.0,NO wins by 7.07,Unreliable Prediction Due To QB Injury,
+BAL @ NE,BAL at -7.0,BAL wins by 4.87,NE (at +6.5 or better),NE
+MIN @ CHI,MIN at -3.0,CHI wins by 1.23,CHI (at +0.5 or better),CHI

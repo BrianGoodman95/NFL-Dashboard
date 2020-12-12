@@ -11,13 +11,16 @@ print(project_path)
 
 season, week = Dashboard_setup.This_Week()
 
-# last_run_time = time.time()-55
-# while True:
-#     if time.time() - last_run_time > 60:
-#         # Run the Weekly Predictor
-#         last_run_time = time.time()
+#Want way to mark games with outside factors (injuries, weather, coaching changes, etc)
+#Would manually indicate in a file the teams with a factor affecting and that game would automatically get a "Something Missing" designation
+#Then we can remove the end caps on the EGO-Spread diff target since genuine extremes due to those factors are ignored
+#In the def Calculate_Data(self, df): function, read in the games_to_avoid.csv and make dict of teams:reason for that week that don't have null values 
+#For each team we normally go through:
+    #Check if either team or opp is in the list of dict keys
+    #If so, pick = 0 and spread target = "Avoid - {team/opp} {dict.reason}"
+    #Else, do the regular thing
 
-Data = Game_Predictor.NFL_Game_Predictor(project_path, week, season, updateType='Week')
+Data = Game_Predictor.NFL_Game_Predictor(project_path, week, season, updateType='Season')
 Spread_Target_DF = Data.Spread_Targets
 # print(f'Week {week} Evaluation:')
 picks = Data.picks

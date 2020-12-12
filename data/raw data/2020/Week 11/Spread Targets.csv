@@ -1,15 +1,15 @@
-Game,EGO,Spread,Spread Target,Pick
-ARI @ SEA,-3.32,3.0,"[2.0, -0.5]",
-ATL @ NO,-9.27,3.5,"[8.0, 5.5]",
-CIN @ WAS,-3.73,1.0,"[2.0, 0.0]",WAS
-DET @ CAR,-2.18,-1.0,"[0.5, -1.5]",CAR
-NE @ HOU,-3.29,-2.0,"[2.0, -0.5]",
-PHI @ CLE,-3.18,2.5,"[1.5, -0.5]",
-PIT @ JAX,5.84,-10.5,"[-7.5, -9.5]",
-TEN @ BAL,-4.59,6.0,"[8.5, 6.0]",TEN
-MIA @ DEN,3.59,-4.0,"[-5.0, -7.5]",
-NYJ @ LAC,-6.88,10.0,"[10.5, 8.5]",NYJ
-DAL @ MIN,-6.73,7.0,"[10.5, 8.0]",
-GB @ IND,-4.1,1.5,"[2.5, 0.5]",IND
-KC @ LV,2.9,-7.5,"[-4.5, -6.5]",
-LAR @ TB,-5.07,4.0,"[3.5, 1.5]",
+Game,Spread,EGO,Spread Target,Pick
+ARI @ SEA,SEA at -3.0,SEA wins by 3.32,Too Close To Call,
+ATL @ NO,NO at -3.5,NO wins by 9.27,Unreliable Prediction Due To QB Injury,
+CIN @ WAS,WAS at -1.0,WAS wins by 3.73,WAS (at -2.0 or better),WAS
+DET @ CAR,DET at -1.0,CAR wins by 2.18,Unreliable Prediction Due To QB Injury,
+NE @ HOU,NE at -2.0,HOU wins by 3.29,HOU (at +1.5 or better),HOU
+PHI @ CLE,CLE at -2.5,CLE wins by 3.18,Too Close To Call,
+PIT @ JAX,PIT at -10.5,PIT wins by 5.84,JAX (at +7.5 or better),JAX
+TEN @ BAL,BAL at -6.0,BAL wins by 4.59,Too Close To Call,
+MIA @ DEN,MIA at -4.0,MIA wins by 3.59,Too Close To Call,
+NYJ @ LAC,LAC at -10.0,LAC wins by 6.88,NYJ (at +8.5 or better),NYJ
+DAL @ MIN,MIN at -7.0,MIN wins by 6.73,Too Close To Call,
+GB @ IND,IND at -1.5,IND wins by 4.1,IND (at -2.5 or better),IND
+KC @ LV,KC at -7.5,KC wins by 2.9,LV (at +4.5 or better),LV
+LAR @ TB,TB at -4.0,TB wins by 5.07,Too Close To Call,

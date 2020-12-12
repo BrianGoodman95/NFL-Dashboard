@@ -555,10 +555,12 @@ class EGO_Prediction():
             #EGO correct if EGO/Spread Diff same sign as SRD
             if margin == 0 and (spread-SRD) == 0: #Game hasn't been played yet since no winner and no difference form spread to scoring margin
                 self.Calculated_Data['Pick Right'].append('')
-            elif (EGO+spread)*SRD>= 0: #Then same sign so correct
+            elif (EGO+spread)*SRD> 0: #Then same sign so correct
                 self.Calculated_Data['Pick Right'].append(1)
-            else: #Got it wrong
+            elif SRD == 0: #Game was a push so not right or wrong
                 self.Calculated_Data['Pick Right'].append(0)
+            else: #Got it wrong
+                self.Calculated_Data['Pick Right'].append(-1)
         #final Results
         # print(self.Calculated_Data)
         time.sleep(1)

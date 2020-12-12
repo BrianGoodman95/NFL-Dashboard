@@ -22,6 +22,7 @@ season, week = Dashboard_setup.This_Week()
 Data = Dashboard_setup.Data(project_path, season)
 
 colours = Dashboard_setup.colours
+Weeks = [w for w in range(6,week+1)]
 
 # app.layout = html.Div(style={'backgroundColor': colours['background']}, children=[
 app.layout = html.Div([
@@ -41,28 +42,30 @@ app.layout = html.Div([
     ]),
     html.Div([
         html.Div([
-            html.H4(f'Week {week} Betting Guide',
+            html.H4(f'Weekly Betting Guide',
                 style={
                 'textAlign': 'left',
                 'color': colours['font'],
                 'margin-left': 65,
                 }
             ),
-            dash_table.DataTable(
-                id='table',
-                columns=[{"name": i, "id": i} for i in Data[0].columns],
-                data=Data[0].to_dict("rows"),
-                style_table={
-                    'maxHeight': '75ex',
-                    'overflowY': 'scroll',
-                    'width': '75%',
-                    'minWidth': '75%',
-                    "margin-left": 50,
-                },
+            dcc.Dropdown(id='betting-guide',
+                options=[{'label': f'Week {w}', 'value': w}
+                        for w in Weeks],
+                value=Weeks[-1],#+Data[1][-1],
+                multi=False,
+                style={
+                    'margin-left': 25,
+                    'margin-right': 200,
+                }
             ),
-        ], className="six columns"),
+            html.Div(children=html.Div(id='Betting_Guide')),
+            dcc.Interval(
+                    id='week-update',
+                    interval=100),
+            ], className="six columns"),
         html.Div([
-            html.H3('2020 Betting Results',
+            html.H4('2020 Betting Results',
                 style={
                     'textAlign': 'center',
                     'color': colours['graph_text']
@@ -72,7 +75,10 @@ app.layout = html.Div([
                 options=[{'label': s, 'value': s}
                         for s in list(Data[1])[:-4]],
                 value=list(Data[1])[:2],#+Data[1][-1],
-                multi=True
+                multi=True,
+                style={
+                    'margin-right': 25,
+                }
                 ),
             html.Div(children=html.Div(id='Season_Results')),
             dcc.Interval(
@@ -82,7 +88,7 @@ app.layout = html.Div([
     ], className="row"),  
     html.Div([
         html.Div([
-            html.H3('Historical Data',
+            html.H4('Historical Data',
                 style={
                     'textAlign': 'center',
                     'color': colours['graph_text']
@@ -101,6 +107,35 @@ app.layout = html.Div([
             ], className="twelve columns",style={'width':'80%', 'height':'100ex', 'margin-left':175,'margin-right':175,'max-width':50000})
     ], className="row")        
 ])
+
+
+@app.callback(
+    dash.dependencies.Output('Betting_Guide','children'),
+    [dash.dependencies.Input('betting-guide', 'value')],
+    events=[dash.dependencies.State('week-update', 'interval')]
+    )
+def weekly_bets(week):
+    Spread_Targets = pd.read_csv(f'{project_path}/raw data/{season}/Week {week}/Spread Targets.csv')
+    Spread_Targets = Spread_Targets.drop('Pick', 1)
+    Spread_Targets.columns = ['Game', 'Spread', 'EGO', 'Pick', 'Result']    
+    Results = []
+    Results.append(dash_table.DataTable(
+        id='table',
+        columns=[{"name": i, "id": i} for i in Spread_Targets.columns],
+        data=Spread_Targets.to_dict("rows"),
+        style_cell={'textAlign': 'left'},
+        style_table={
+            'maxHeight': '75ex',
+            'overflowY': 'scroll',
+            'width': '75%',
+            'minWidth': '75%',
+            "margin-left": 50,
+            'textAlign': 'center',
+        },
+    ))
+
+    return Results
+
 
 @app.callback(
     dash.dependencies.Output('Season_Results','children'),
@@ -135,9 +170,6 @@ def historical_data(data_names):
 
     return Results
 
-# app.css.append_css({
-#     'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
-# })
 
 if __name__ == '__main__':
     app.run_server(debug=True)

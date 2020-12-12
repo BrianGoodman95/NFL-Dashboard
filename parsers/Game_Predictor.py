@@ -147,7 +147,7 @@ class NFL_Game_Predictor():
         #Output the target spread range for each game
         #sort by date so output is better
         df = df.sort_values(by=['Day', 'Time'], ascending=[0,1])  
-        #Only keep the Away Teams' rows  
+        #Only keep the Away Teams' rows  SO DONT HAVE 2 ENTRIES FOR EACH GAME
         df = df[df.Home_Team == 0]
         predictionDF = pd.DataFrame()
         Teams = list(df['Team'])
@@ -158,9 +158,11 @@ class NFL_Game_Predictor():
         predictions = []
         spreads = list(df['Betting Spread'])
         EGOs = list(df['EGO'])
+        Results = list(df['Pick Right'])
         formated_EGOs = []
         formated_spreads = []
         for game in range(len(spreads)):
+            #PART 1 - Format the Spread and EGO for each Game
             spread = spreads[game]
             EGO = EGOs[game]
             #Always write wrt the favorite
@@ -177,6 +179,8 @@ class NFL_Game_Predictor():
             elif float(EGO) < 0:
                 ego = str(EGO).split('-')[-1]
                 formated_EGOs.append(f'{Opponents[game]} wins by {ego}')
+            
+            #PART 2 - Determine and Get the Bet Recommendation
             targets = target_spreads[game]
             closest_target = 100 #some big number
             predictions.append('') #Add a placeholder for now
@@ -204,16 +208,30 @@ class NFL_Game_Predictor():
                                 else:
                                     str_spread = f'-{t}'
                                 predictions[game] = f'{Opponents[game]} (at {str_spread} or better)'
-                            # predictions[game] = target_range
+            #PART 3 - Get the result of the game
+            res = Results[game]
+            if res == 1:
+                Results[game] = 'Correct'
+            elif res == -1:
+                Results[game] = 'Incorrect'
+            elif res == 0:
+                Results[game] = 'Push'
+            else:
+                Results[game] = '-'
+        
+        #Put it all together
         for pos, s in enumerate(spreads):
            spreads[pos]=float(s)
         predictionDF['Spread'] = formated_spreads 
         predictionDF['EGO'] = formated_EGOs
         predictionDF['Spread Target'] = predictions
         predictionDF['Pick'] =  list(df['Pick'])
+        predictionDF['Result'] =  Results
         # print(predictionDF)
         self.Save_DF(predictionDF, f'{raw_data_path}/Week {week}/Spread Targets.csv')
 
+
+        #SAVE THE PICKS
         self.User_Message('Making Picks ...')
         time.sleep(0.5)
         #Get the Picks for the week
@@ -223,6 +241,7 @@ class NFL_Game_Predictor():
         time.sleep(1)
         #Add the data for picks made for this week
         All_Picks = []
+        #Read the weekly picks or make a new file
         try:
             pick_df = pd.read_csv(f'{raw_data_path}/Week {week}/Picks.csv')
             prev_picks = list(pick_df['Pick'])
@@ -230,7 +249,7 @@ class NFL_Game_Predictor():
             pick_df = new_picks_df
             prev_picks = list(new_picks_df['Pick'])
         All_Picks.append(pick_df)
-        # new_picks_df = new_picks_df.loc[new_picks_df['Team'].isin(self.picks)] #Keep data for games we're picking only
+        #Add the pick only if its a new pick (the team switched)
         for team in self.picks: #For each team we've picked
             if team in prev_picks: #Check if our picks already have that team
                 pass
@@ -240,9 +259,6 @@ class NFL_Game_Predictor():
         All_Picks_DF = pd.concat(All_Picks)
         self.Save_DF(All_Picks_DF, f'{raw_data_path}/Week {week}/Weekly Picks.csv')
 
-        #Later, if week not current one, evaluate if Pick Right or Wrong        
-        #Even more later, make fancier visual of current week predictions
-        #Even more later, make analysis showing season stats of picking
         return predictionDF
 
     def Calculate_Game_Info(self, raw_data_path, week, df):

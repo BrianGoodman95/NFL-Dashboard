@@ -55,8 +55,9 @@ app.layout = html.Div([
                 value=Weeks[-1],#+Data[1][-1],
                 multi=False,
                 style={
+                    'width': '46%',
                     'margin-left': 25,
-                    'margin-right': 200,
+                    'margin-right': 300,
                 }
             ),
             html.Div(children=html.Div(id='Betting_Guide')),
@@ -94,12 +95,22 @@ app.layout = html.Div([
                     'color': colours['graph_text']
                 }
             ),
-            dcc.Dropdown(id='historical-results',
-                options=[{'label': s, 'value': s}
-                        for s in list(Data[2])[:-3]],
-                # placeholder="Select a metric to analyze the models betting accuracy...",
-                value=list(Data[2])[0],
-                ),
+            html.Label(['Show Accuracy By:'], style={'font-weight': 'bold', "text-align": "center","offset":1}),
+            html.Div([
+                dcc.Dropdown(id='historical-results',
+                    options=[{'label': s, 'value': s}
+                            for s in list(Data[2])[:-3]],
+                    # placeholder="Select a metric to analyze the models betting accuracy...",
+                    value=list(Data[2])[0]
+                )
+            ],
+            style={
+                'width': '20%',
+                'horizontalAlign':'middle',
+                'margin-left': 600,
+                'margin-right': 600,
+            },
+            ),
             html.Div(children=html.Div(id='Historical_Results')),
             dcc.Interval(
                 id='data-update',
@@ -117,7 +128,7 @@ app.layout = html.Div([
 def weekly_bets(week):
     Spread_Targets = pd.read_csv(f'{project_path}/raw data/{season}/Week {week}/Spread Targets.csv')
     Spread_Targets = Spread_Targets.drop('Pick', 1)
-    Spread_Targets.columns = ['Game', 'Spread', 'EGO', 'Pick', 'Result']    
+    Spread_Targets.columns = ['Game', 'Spread', 'Expected Game Outcome', 'Pick', 'Result']    
     Results = []
     Results.append(dash_table.DataTable(
         id='table',
@@ -127,7 +138,7 @@ def weekly_bets(week):
         style_table={
             'maxHeight': '75ex',
             'overflowY': 'scroll',
-            'width': '75%',
+            'width': '85%',
             'minWidth': '75%',
             "margin-left": 50,
             'textAlign': 'center',

@@ -65,6 +65,7 @@ class NFL_Game_Predictor():
         min_season=current_season
         self.min_week = 6
         self.current_week = current_week
+        self.updateType = updateType
         print(updateType)
         if updateType == 'Historical':
             Update_Weeks = [w for w in range(self.min_week,16)]
@@ -270,7 +271,7 @@ class NFL_Game_Predictor():
         #Get the Map/Model
         self.Map = EGO_Analyzer.Map
         #Calculate what we need
-        self.Calculated_Data = EGO_Analyzer.Calculate_Data(df, week)
+        self.Calculated_Data = EGO_Analyzer.Calculate_Data(df, week, self.season)
         #Add to the DataFrame
         for key, val in self.Calculated_Data.items():
             df[key] = val
@@ -357,7 +358,7 @@ class NFL_Game_Predictor():
         # Update Names of Teams to match the WDVOA team names
         self.User_Message(f'Combining Retrieved Data ...')
         raw_dfs = [WDVOA_DF, Week_DF, Spread_DF]
-        team_matcher = Prediction_Helper.Team_Matching(raw_data_path, raw_dfs)
+        team_matcher = Prediction_Helper.Team_Matching(raw_data_path, raw_dfs, self.updateType)
         Combined_Raw_DF = team_matcher.Combined_Raw_DF
 
         Game_Info_DF = Combined_Raw_DF

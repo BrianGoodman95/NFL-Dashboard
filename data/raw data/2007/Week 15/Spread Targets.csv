@@ -1,0 +1,17 @@
+Game,Spread,EGO,Spread Target,Pick,Result
+DEN @ HOU,DEN at -2.5,DEN wins by 0.9,HOU (at +2.0 or better),HOU,Correct
+GB @ STL,GB at -7.0,GB wins by 12.34,Missing Something ...,,Correct
+TEN @ KC,TEN at -3.5,TEN wins by 1.41,KC (at +2.5 or better),KC,Incorrect
+NYJ @ NE,NE at -20.5,NE wins by 17.04,NYJ (at +18.5 or better),NYJ,Correct
+SEA @ CAR,SEA at -8.0,SEA wins by 9.08,SEA (at -8.0 or better),SEA,Incorrect
+ARI @ NO,NO at -3.5,NO wins by 4.81,NO (at -3.5 or better),NO,Correct
+ATL @ TB,TB at -12.5,TB wins by 11.39,ATL (at +12.5 or better),ATL,Incorrect
+BAL @ MIA,BAL at -3.0,BAL wins by 3.61,Too Close To Call,,Incorrect
+BUF @ CLE,CLE at -5.0,CLE wins by 3.99,Too Close To Call,,Incorrect
+JAC @ PIT,PIT at -3.0,PIT wins by 0.73,JAC (at +2.0 or better),JAC,Correct
+IND @ OAK,IND at -10.0,IND wins by 10.35,Too Close To Call,,Incorrect
+DET @ SD,SD at -9.5,SD wins by 9.17,Too Close To Call,,Incorrect
+PHI @ DAL,DAL at -10.0,DAL wins by 10.45,Too Close To Call,,Incorrect
+WAS @ NYG,NYG at -6.5,NYG wins by 2.58,WAS (at +4.0 or better),WAS,Correct
+CIN @ SF,CIN at -8.5,CIN wins by 9.83,CIN (at -8.5 or better),CIN,Incorrect
+CHI @ MIN,MIN at -10.5,MIN wins by 7.32,CHI (at +8.5 or better),CHI,Correct

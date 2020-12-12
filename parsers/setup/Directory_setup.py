@@ -6,9 +6,10 @@ class Create_Directories():
         dir_path = pathlib.Path().absolute()
         if 'home/BGoodman95' in str(dir_path): #The Python Anywhere Dashboard
             Data_Path = "data"
+            self.project_path = f'{str(dir_path)}/NFL-Dashboard/{Data_Path}'
         else:
             Data_Path = "data"
-        self.project_path = f'{str(dir_path)}/NFL-Dashboard/{Data_Path}'
+            self.project_path = f'{str(dir_path)}/{Data_Path}'
         try:
             os.mkdir(Data_Path)
         except FileExistsError:

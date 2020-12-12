@@ -90,10 +90,11 @@ class Prediction_Analyzer():
         SRDs = list(df['SRD'])
         Results = [0,0]
         for game in range(0,len(EGOs)):
-            if EGOs[game]*SRDs[game] >= 0: #Then same sign so correct
+            if EGOs[game]*SRDs[game] > 0: #Then same sign so correct
                 Results[0]+=1
-            else: #Got it wrong
+            elif EGOs[game]*SRDs[game] < 0:: #Got it wrong
                 Results[1]+=1
+            #Not counting pushes here
         correct = Results[0]
         wrong = Results[1]
         return correct, wrong

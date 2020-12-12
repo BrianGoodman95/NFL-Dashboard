@@ -1,17 +1,17 @@
-Game,Spread,EGO,Spread Target,Pick
-NE @ LAR,LAR at -5.0,LAR wins by 7.64,LAR (at -6.0 or better),LAR
-ARI @ NYG,ARI at -2.5,ARI wins by 0.12,NYG (at +2.0 or better),NYG
-DAL @ CIN,DAL at -3.0,CIN wins by 1.23,Unreliable Prediction Due To QB Injury,
-DEN @ CAR,CAR at -3.0,CAR wins by 6.92,CAR (at -5.0 or better),CAR
-HOU @ CHI,HOU at -1.5,CHI wins by 2.55,CHI (at +1.0 or better),CHI
-KC @ MIA,KC at -7.0,KC wins by 0.67,MIA (at +2.5 or better),MIA
-MIN @ TB,TB at -7.0,TB wins by 7.68,Too Close To Call,
-TEN @ JAX,TEN at -7.5,TEN wins by 3.2,JAX (at +5.0 or better),JAX
-IND @ LV,IND at -3.0,IND wins by 2.5,Too Close To Call,
-NYJ @ SEA,SEA at -14.0,SEA wins by 11.1,NYJ (at +13.0 or better),NYJ
-ATL @ LAC,ATL at -1.0,ATL wins by 3.45,ATL (at -1.5 or better),ATL
-GB @ DET,GB at -7.5,GB wins by 5.91,DET (at +7.5 or better),DET
-NO @ PHI,NO at -7.5,NO wins by 10.09,Unreliable Prediction Due To QB Injury,
-WAS @ SF,SF at -3.0,SF wins by 2.4,Too Close To Call,
-PIT @ BUF,BUF at -2.0,PIT wins by 0.07,PIT (at +1.5 or better),PIT
-BAL @ CLE,BAL at -2.5,BAL wins by 0.32,CLE (at +2.0 or better),CLE
+Game,Spread,EGO,Spread Target,Pick,Result
+NE @ LAR,LAR at -5.0,LAR wins by 7.64,LAR (at -6.0 or better),LAR,Correct
+ARI @ NYG,ARI at -2.5,ARI wins by 0.12,NYG (at +2.0 or better),NYG,-
+DAL @ CIN,DAL at -3.0,CIN wins by 1.23,Unreliable Prediction Due To QB Injury,,-
+DEN @ CAR,CAR at -3.0,CAR wins by 6.92,CAR (at -5.0 or better),CAR,-
+HOU @ CHI,HOU at -2.0,CHI wins by 2.55,CHI (at +1.0 or better),CHI,-
+KC @ MIA,KC at -7.0,KC wins by 0.67,MIA (at +2.5 or better),MIA,-
+MIN @ TB,TB at -7.0,TB wins by 7.68,Too Close To Call,,-
+TEN @ JAX,TEN at -7.5,TEN wins by 3.2,JAX (at +5.0 or better),JAX,-
+IND @ LV,IND at -3.0,IND wins by 2.5,Too Close To Call,,-
+NYJ @ SEA,SEA at -14.5,SEA wins by 11.1,NYJ (at +13.0 or better),NYJ,-
+ATL @ LAC,ATL at -1.0,ATL wins by 3.45,ATL (at -1.5 or better),ATL,-
+GB @ DET,GB at -7.5,GB wins by 5.91,DET (at +7.5 or better),DET,-
+NO @ PHI,NO at -7.5,NO wins by 10.09,Unreliable Prediction Due To QB Injury,,-
+WAS @ SF,SF at -3.0,SF wins by 2.4,Too Close To Call,,-
+PIT @ BUF,BUF at -2.0,PIT wins by 0.07,PIT (at +1.5 or better),PIT,-
+BAL @ CLE,BAL at -2.5,BAL wins by 0.32,CLE (at +2.0 or better),CLE,-

@@ -42,11 +42,14 @@ class Plots():
         xvals.sort()
         accs = []
         legend_data = []
+        pickResults=[-1, 1]
         for val in xvals:
-            val_data = Data.loc[(Data[xcol] == val) & (Data['Make Pick'] == 1)] #Get the Picks Made for that Season/Week/Team
+            val_data = Data.loc[(Data[xcol] == val) & (Data['Make Pick'] == 1) & (Data['Pick Right'].isin(pickResults))] #Get the Picks Made for that Season/Week/Team
             picks = len(val_data['Make Pick']) #Total Number of Picks Made
-            picks_right = sum(list(val_data['Pick Right'])) #All the 1s for Pick being right
-            accs.append(round((picks_right/picks),2))
+            picks_right_data = val_data.loc[(val_data['Pick Right'] == 1)] #All the 1s for Pick being right
+            picks_right = len(picks_right_data['Pick Right'])
+            # picks_right = sum(list(val_data['Pick Right'])) #All the 1s for Pick being right
+            accs.append(round((100*picks_right/picks),2))
             legend_data.append(f'Model Accuracy by {xcol}')
         df[xcol] = xvals
         df['Betting Accuracy']= accs
@@ -68,7 +71,7 @@ class Plots():
         ego_data = list(evaluation_df[xcol])
         prediction_data = list(evaluation_df['Pick Right'])
         for pos, pred in enumerate(prediction_data):
-            if pred == 0:
+            if pred == -1:
                 prediction_data[pos]=-1
             elif pred == 1:
                 prediction_data[pos] = 1
@@ -77,7 +80,7 @@ class Plots():
         counter=0
         for dp in range(0,len(ego_data)-moving_avg):
             avg_egoDiff = sum(ego_data[dp:(dp+moving_avg)])/moving_avg
-            avg_acc = ((sum(prediction_data[dp:(dp+moving_avg)])/2)+(moving_avg/2))/moving_avg
+            avg_acc = 100*((sum(prediction_data[dp:(dp+moving_avg)])/2)+(moving_avg/2))/moving_avg
             avg_ego_data.append(avg_egoDiff)
             accuracy_data.append(avg_acc)
             counter+=1

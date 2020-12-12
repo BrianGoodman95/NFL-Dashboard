@@ -303,14 +303,18 @@ class Game_Info_Parser():
         return Week_DF
     
 class Team_Matching():
-    def __init__(self, raw_data_path, dfs):
+    def __init__(self, raw_data_path, dfs, updateType):
         self.raw_data_path = raw_data_path
         self.name_cols = ['TEAM', 'Team', 'Team']
         self.raw_dfs = dfs
-        try:
-            self.Name_Map = pd.read_csv(f'{self.raw_data_path}/Names.csv')
-            # print(self.Name_Map)
-        except:
+        self.updateType = updateType
+        if self.updateType != 'Historical':
+            try:
+                self.Name_Map = pd.read_csv(f'{self.raw_data_path}/Names.csv')
+                # print(self.Name_Map)
+            except:
+                self.Name_Map = self.make_name_map(dfs)
+        else:
             self.Name_Map = self.make_name_map(dfs)
         self.Combined_Raw_DF = self.Combine_DFs()
 
@@ -402,6 +406,7 @@ class Team_Matching():
                     name = self.Name_Map.loc[self.Name_Map[f'Mapped Name {df-1}'] == teams[t]]['Ref Name'].tolist()[0]
                 except:
                     print(teams[t])
+                    print('exception')
                 # Replace the name in the original df with the reference name
                 og_df = og_df.replace(teams[t],name)
                 self.raw_dfs[df] = og_df
@@ -413,7 +418,10 @@ class Team_Matching():
         
         #PART 2 - Combine the self.raw_dfs using the Names as the cross reference
         #Define lists we need
-        Possible_Additional_Names = ['WDVOA', 'Betting Spread']# ["Betting Spread", "WEI.DVOA", "WEIGHTED DVOA", "WEIGHTEDDVOA", "WEIGHTEDVOA", "DAVE", "TOTAL DAVE", "TOTALDAVE", "TOTAL  DAVE", 'WEI.  DVOA']
+        if self.updateType == 'Historical':
+            Possible_Additional_Names = ['WDVOA', 'Betting Spread', "Betting Spread", "WEI.DVOA", "WEIGHTED DVOA", "WEIGHTEDDVOA", "WEIGHTEDVOA", "DAVE", "TOTAL DAVE", "TOTALDAVE", "TOTAL  DAVE", 'WEI.  DVOA']
+        else:
+            Possible_Additional_Names = ['WDVOA', 'Betting Spread']#, "Betting Spread", "WEI.DVOA", "WEIGHTED DVOA", "WEIGHTEDDVOA", "WEIGHTEDVOA", "DAVE", "TOTAL DAVE", "TOTALDAVE", "TOTAL  DAVE", 'WEI.  DVOA']
         keep_cols = {}
         df_teams = []
         #Get the teams common to every DF
@@ -495,15 +503,20 @@ class EGO_Prediction():
 
         return target_spreads, pick
 
-    def Calculate_Data(self, df, week):
+    def Calculate_Data(self, df, week, season):
         self.Calculated_Data = {'WDVOA Delta':[], 'EGO':[], 'Spread to EGO Diff':[], 'Margin to EGO Diff':[], 'Target Spreads':[], 'Make Pick':[], 'Pick':[], 'Pick Right':[]}
         #Read the Games to Avoid:
-        GTA_DF = pd.read_csv(f'{self.raw_data_path}/Games_To_Avoid.csv')
-        GTA_DF = GTA_DF[GTA_DF[f'Week {week}'].notna()]
-        GTA_DF_Sum = GTA_DF[['Ref Name', f'Week {week}']]
-        print(GTA_DF_Sum)
-        gta_teams = list(GTA_DF_Sum['Ref Name'])
-        gta_reasons = list(GTA_DF_Sum[f'Week {week}'])
+        try:
+            GTA_DF = pd.read_csv(f'{self.raw_data_path}/Games_To_Avoid.csv')
+            GTA_DF = GTA_DF[GTA_DF[f'Week {week}'].notna()]
+            GTA_DF_Sum = GTA_DF[['Ref Name', f'Week {week}']]
+            print(GTA_DF_Sum)
+            gta_teams = list(GTA_DF_Sum['Ref Name'])
+            gta_reasons = list(GTA_DF_Sum[f'Week {week}'])
+        except:
+            self.target_egospr_diffs = [[-3.7,-1.3],[1.3,3.7]]
+            gta_teams = []
+            gta_reasons = []
         for team_row in range(len(list(df['Season']))):
             #Get needed stats for the team_row
             team = df.iloc[team_row]['Team']
@@ -553,7 +566,7 @@ class EGO_Prediction():
             self.Calculated_Data['Make Pick'].append(makePick)
             self.Calculated_Data['Pick'].append(pick)
             #EGO correct if EGO/Spread Diff same sign as SRD
-            if margin == 0 and (spread-SRD) == 0: #Game hasn't been played yet since no winner and no difference form spread to scoring margin
+            if margin == 0 and (spread-SRD) == 0 and season>=2020: #Game hasn't been played yet since no winner and no difference form spread to scoring margin
                 self.Calculated_Data['Pick Right'].append('')
             elif (EGO+spread)*SRD> 0: #Then same sign so correct
                 self.Calculated_Data['Pick Right'].append(1)

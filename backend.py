@@ -14,14 +14,18 @@ if 'home/BGoodman95' in str(dir_path): #The Python Anywhere Dashboard
 
 season, week = Dashboard_setup.This_Week()
 
-#Want way to mark games with outside factors (injuries, weather, coaching changes, etc)
-#Would manually indicate in a file the teams with a factor affecting and that game would automatically get a "Something Missing" designation
-#Then we can remove the end caps on the EGO-Spread diff target since genuine extremes due to those factors are ignored
-#In the def Calculate_Data(self, df): function, read in the games_to_avoid.csv and make dict of teams:reason for that week that don't have null values 
-#For each team we normally go through:
-    #Check if either team or opp is in the list of dict keys
-    #If so, pick = 0 and spread target = "Avoid - {team/opp} {dict.reason}"
-    #Else, do the regular thing
+'''
+3 Modes to run the data parser with:
+Weekly - Updates the current and last week predicitons/results only
+Season - Updates every week in the current season
+Historical - Updates every game ever
+    To run Historical:
+        -Need to enable the old WDVOA DF headers in Predition_Helper.Combine_DF
+        -Need to enable a new naming convention to be made every week in Prediction_Helper.init (since Week 6 some seasons has byes)
+        -Need to remove the margin==0 if condition in Prediction_Helper.Calculate_Data since historical ties are indistinguishable
+        -Need to put the upper EGO-Spread Diff limit in (3.7) since no games_to_avoid
+    Put everything back, then run the season parser to cleanup the latest season results from these changes
+'''
 
 Data = Game_Predictor.NFL_Game_Predictor(project_path, week, season, updateType='Week')
 Spread_Target_DF = Data.Spread_Targets

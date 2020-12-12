@@ -21,7 +21,7 @@ def Data(path, season):
     #Week Data
     Spread_Targets = pd.read_csv(f'{data_path}/raw data/{season}/Week {week}/Spread Targets.csv')
     Spread_Targets = Spread_Targets.drop('Pick', 1)
-    Spread_Targets.columns = ['Game', 'Spread', 'EGO', 'Pick', 'Result']
+    Spread_Targets.columns = ['Game', 'Spread', 'Expected Game Outcome', 'Pick', 'Result']
 
     #Season Data
     Season_Results = pd.read_csv(f'{data_path}/{season} Betting Results.csv')

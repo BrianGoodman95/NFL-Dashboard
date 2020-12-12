@@ -92,7 +92,7 @@ class Prediction_Analyzer():
         for game in range(0,len(EGOs)):
             if EGOs[game]*SRDs[game] > 0: #Then same sign so correct
                 Results[0]+=1
-            elif EGOs[game]*SRDs[game] < 0:: #Got it wrong
+            elif EGOs[game]*SRDs[game] < 0: #Got it wrong
                 Results[1]+=1
             #Not counting pushes here
         correct = Results[0]

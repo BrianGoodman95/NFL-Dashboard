@@ -75,7 +75,7 @@ class Spread_Parser():
             if attempts > 10:
                 found_data = True
                 self.User_Message('Too many failed attempts. Aborting ...')
-        
+
         self.User_Message('Collecting Data ...')
         time.sleep(0.5)
         #Put the Data into Dataframe format
@@ -85,7 +85,7 @@ class Spread_Parser():
         betting_spreads = spreads_df.iloc[:,-1] #Get the last column
         # betting_spreads = list(spreads_df.iloc[:,-2]) #Get the 2nd last column
         matchup_df['Betting Spread'] = betting_spreads
-    
+
         #Clean up the Data
         all_cols = list(matchup_df)
         good_cols = ['Game', 'Open', 'Betting Spread']
@@ -115,11 +115,12 @@ class Spread_Parser():
             else:
                 team1_pos = dps-3
                 team2_pos = dps-2
-            team1 = game_data[team1_pos]
+            team1 = game_data[team1_pos].split(' ')[-1]
             # team1 = game_data[dps-2-(2*score_pos)]
             team2 = game_data[team2_pos]
             # team2 = game_data[dps-1-score_pos]
-            game_time = f'{game_data[0]}'# {game_data[1]}'
+            game_t = game_data[0].split(' ')[0]
+            game_time = f'{game_t}'# {game_data[1]}'
             newData[0].append(game_time)
             newData[1].append(team1)
             newData[2].append(team2)
@@ -143,7 +144,7 @@ class Spread_Parser():
             open_spreads[game] = open_spread
             bet_spread_parts = str(bet_spreads[game]).split(' ')
             # self.User_Message(bet_spread_parts)
-            bet_spread = f'{bet_spread_parts[0]} / {bet_spread_parts[3]}' 
+            bet_spread = f'{bet_spread_parts[0]} / {bet_spread_parts[3]}'
             bet_spreads[game] = bet_spread
         df['Open'] = open_spreads
         df['Betting Spread'] = bet_spreads
@@ -265,7 +266,7 @@ class Game_Info_Parser():
         # now we can perform a lookup on a 'view' of the dataframe
         Week_Sched_DF = schedule_df.loc[schedule_df.Week==str(self.week)]
         return Week_Sched_DF
-    
+
     def Week_Formated_DF(self):
         Week_Sched_DF = self.Get_Week_Schedule()
         Week_DF = pd.DataFrame()
@@ -301,7 +302,7 @@ class Game_Info_Parser():
             else:
                 Week_DF[col] = Week_Sched_DF[col].tolist()*2
         return Week_DF
-    
+
 class Team_Matching():
     def __init__(self, raw_data_path, dfs, updateType):
         self.raw_data_path = raw_data_path
@@ -328,7 +329,7 @@ class Team_Matching():
         #For each Wteam in wdvoaTeams:
             #For each Steam in spreadTeam:
                 #For each letter of Wteam
-        
+
         #End product is csv where can look up each column for the team name and re-name it to the name in the first column
         #Then every df we read will have the same team names
         #Then for the master df, can look up the values needed from other dfs using the team name as the cross reference point
@@ -379,7 +380,7 @@ class Team_Matching():
             Name_Map[f'Mapped Name {nCol}'] = Mapped_Names[nCol]
         # print(Name_Map)
         Name_Map.to_csv(f'{self.raw_data_path}/Names.csv', index=False)
-       
+
         return Name_Map
 
 
@@ -415,7 +416,7 @@ class Team_Matching():
             self.raw_dfs[df] = self.raw_dfs[df].set_index(self.name_cols[df])
         #Re-index the df that wasn't itterated through
         self.raw_dfs[0] = self.raw_dfs[0].set_index(self.name_cols[0])
-        
+
         #PART 2 - Combine the self.raw_dfs using the Names as the cross reference
         #Define lists we need
         if self.updateType == 'Historical':
@@ -552,7 +553,7 @@ class EGO_Prediction():
                 #Get Target Spread for each EGO
                 target_spreads,makePick = self.Target_Spreads(EGO, spread)
             if makePick == 0:
-                if abs(EGO+spread)>self.target_egospr_diffs[1][-1]: #If -2+(-3) then 
+                if abs(EGO+spread)>self.target_egospr_diffs[1][-1]: #If -2+(-3) then
                     target_spreads = "Missing Something ..."
                 elif abs(EGO+spread)<self.target_egospr_diffs[1][0]:
                     target_spreads = "Too Close To Call"

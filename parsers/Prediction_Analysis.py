@@ -10,7 +10,7 @@ Weeks = [i for in range(min week, current_week+1)]
 For week in weeks:
     COLLECT DATA
         Want to get the saved Calculated Data csv
-        
+
     CALCULATE DATA
         Want to get the count of predictions made, # correct, number wrong, # games total, # EGOs correct and wrong
         Want to put the data in same format so can make this season version ofthe accuracy vs ego/spread diff plot
@@ -25,7 +25,7 @@ class Prediction_Analyzer():
         self.time = time
         self.Read_Previous_Data = True
         self.Enable_Messaging = Enable_Messaging
-        
+
         #Dictionary of raw stats to collect
         self.Result_Stats = {
             'Season':[], 'Week':[], 'Games':[], 'EGO Correct':[], 'EGO Wrong':[], 'EGO Accuracy':[], 'Picked Games':[], 'Picks Correct':[], 'Picks Wrong':[], 'Pick Accuracy':[], 'Season EGO Accuracy':[], 'Season Picks Accuracy':[]
@@ -33,8 +33,8 @@ class Prediction_Analyzer():
 
         #Collection parameters
         self.season = current_season
-        self.min_week = 7
-        
+        self.min_week = 6
+
         #Make save locations
         self.project_path = project_path
         self.raw_data_path = f'{project_path}'
@@ -47,7 +47,7 @@ class Prediction_Analyzer():
         for week in range(min_week,16):
             # print(f'Analyzing Week: {week} Picks ...')
             try:
-                #Get the Raw Data we need    
+                #Get the Raw Data we need
                 self.Calculated_Game_Data = pd.read_csv(f'{self.raw_data_path}/raw data/{current_season}/Week {week}/Weekly Picks.csv')
                 self.Analyze_Data(self.Calculated_Game_Data, self.raw_data_path, week)
             except FileNotFoundError:
@@ -74,7 +74,7 @@ class Prediction_Analyzer():
         if self.Enable_Messaging:
             print(message)
             time.sleep(sleep)
-    
+
     def Check_Results_Exist(self, f):
         # try:
         #     df = pd.read_csv(f)
@@ -103,7 +103,7 @@ class Prediction_Analyzer():
         #Get numbers for this week
         total_df = total_df[total_df.Home_Team == 0]
         total_games = len(list(total_df['Team']))
-        total_correct, total_wrong = self.Evaluate_Picks(total_df)        
+        total_correct, total_wrong = self.Evaluate_Picks(total_df)
         picks_df = total_df[total_df['Pick'].notna()]
         picked_correct, picked_wrong = self.Evaluate_Picks(picks_df)
         #Store resulting week stats in the dictionary

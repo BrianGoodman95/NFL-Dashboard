@@ -6,8 +6,8 @@ def This_Week():
     year = currentDate.split('-')[0]
     week_num = datetime.date(int(year), int(currentDate.split('-')[1]), int(currentDate.split('-')[2])).isocalendar()[1]
     day_num = datetime.date(int(year), int(currentDate.split('-')[1]), int(currentDate.split('-')[2])).isocalendar()[2]
-    if day_num <= 2: #Monday or Tuesday
-        week_num = week_num - 1 #Still reference last week 
+    if day_num <= 1: #Monday
+        week_num = week_num - 1 #Still reference last week
     first_week = 36
     w = week_num - first_week
     if w <= 0:

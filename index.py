@@ -27,12 +27,16 @@ Weeks = [w for w in range(6,week+1)]
 # app.layout = html.Div(style={'backgroundColor': colours['background']}, children=[
 app.layout = html.Div([
     html.Div([
-        html.H1('NFL Betting Predictor',
-            style={
-                'textAlign': 'center',
-                'color': colours['title']
-            }
-        ),
+        html.H2("NFL Betting Predictor"),
+        html.Img(src="/assets/newlogo.png")
+    ], className="banner"),
+    html.Div([
+    #     html.H1('NFL Betting Predictor',
+    #         style={
+    #             'textAlign': 'center',
+    #             'color': colours['title']
+    #         }
+    #     ),
         html.H4('A Data Based Model to Pick Games and Win $$$', 
             style={
             'textAlign': 'center',
@@ -87,6 +91,11 @@ app.layout = html.Div([
                 interval=100),
             ], className="six columns"),#,style={'width':'50%','margin-left':10,'margin-right':10,'max-width':50000})
     ], className="row"),  
+    # html.Div([
+    #     html.Button('Save', id='save-button', style={'margin-left': 25}),
+    #     html.P(id='editable-table-hidden', style={'display':'none'}),
+    #     html.P(id='save-button-hidden', style={'display':'none'}),
+    # ], className='row'),
     html.Div([
         html.Div([
             html.H4('Historical Data',
@@ -107,8 +116,8 @@ app.layout = html.Div([
             style={
                 'width': '20%',
                 'horizontalAlign':'middle',
-                'margin-left': 600,
-                'margin-right': 600,
+                'margin-left': 575,
+                'margin-right': 575,
             },
             ),
             html.Div(children=html.Div(id='Historical_Results')),
@@ -119,6 +128,20 @@ app.layout = html.Div([
     ], className="row")        
 ])
 
+# @app.callback(Output('save-button-hidden', 'children'),
+#             [Input('save-button', 'n_clicks')])
+# def clicks(n_clicks):
+#     Spread_Targets = pd.read_csv(f'{project_path}/raw data/{season}/Week {week}/Spread Targets.csv')
+#     Spread_Targets = Spread_Targets.drop('Pick', 1)
+#     Spread_Targets.columns = ['Game', 'Spread', 'Expected Game Outcome', 'Pick', 'Result'] 
+#     print(n_clicks)
+#     try:
+#         int(n_clicks)
+#         if n_clicks > 0:
+#             print('save')
+#             Spread_Targets.to_csv('df.csv', index=False, encoding='utf-8')
+#     except:
+#         pass
 
 @app.callback(
     dash.dependencies.Output('Betting_Guide','children'),
@@ -142,7 +165,9 @@ def weekly_bets(week):
             'minWidth': '75%',
             "margin-left": 50,
             'textAlign': 'center',
+            'padding-bottom': 20,
         },
+        export_format="csv",
     ))
 
     return Results

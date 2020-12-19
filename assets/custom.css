@@ -1,0 +1,29 @@
+.export{
+    position: absolute;
+    /* right: 50%; */
+    height: 36px;
+    margin-left:235px;
+    margin-top:-36.5px;
+    font-type: sans-serif;
+}
+
+.banner {
+    height: 100px;
+    margin: 0px -10px 10px;
+    background-color: rgb(9, 182, 95);
+    border-radius: 2px;
+}
+
+.banner h2{
+    color: white;
+    padding-top: 10px;
+    margin-left: 2%;
+    display: inline-block;
+}
+
+.banner Img{
+    position: relative;
+    float: right;
+    right: 50px;
+    height: 100px;
+}

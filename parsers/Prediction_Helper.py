@@ -108,8 +108,9 @@ class Spread_Parser():
         newData = [[] for i in range(len(newCols))]
         for game in game_col:
             game_data = game.split('  ')
+            # print(game_data)
             dps = len(game_data)
-            if dps > 5: #Game in progress or finished
+            if dps >= 5: #Game in progress or finished
                 team1_pos = dps-5
                 team2_pos = dps-3
             else:

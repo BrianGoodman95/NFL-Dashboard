@@ -35,14 +35,14 @@ For week in weeks:
     Get Map
     Interpolate EGO
     Make Prediction
-    Calculate EGO/Spread 
+    Calculate EGO/Spread
     If week < current week
         Calculate EGO/Result Diff
         Evaluate if prediction correct
 
     Save Data for the week
     If week > min week
-        Read previous Season Data 
+        Read previous Season Data
         Append new data to read data
     Save total data for season
 '''
@@ -52,7 +52,7 @@ class NFL_Game_Predictor():
         self.time = time
         self.Read_Previous_Data = True
         self.Enable_Messaging = Enable_Messaging
-        
+
         #Dictionary of raw stats to collect
         self.Collect_Data_Dict = {
             'Team':[], 'Opponent':[], 'Week':[], 'Year':[], 'Home Team':[], 'WDVOA':[], 'Spread':[], 'Result':[]
@@ -77,7 +77,7 @@ class NFL_Game_Predictor():
         else:
             print('INVALID VALUE IN FIELD UPDATETYPE')
             return
-        
+
         for self.season in range(min_season,current_season+1):
             if self.season <= 2019: #Get weeks to go through for Past seasons
                 self.season_weeks = [w for w in range(self.min_week,16)]
@@ -88,7 +88,7 @@ class NFL_Game_Predictor():
             #Lists and DFs
             self.Week_DF = pd.DataFrame()
             self.All_Weeks_DFs = []
-            
+
             #Make save locations
             self.project_path = project_path
             self.raw_data_path = f'{project_path}/raw data/{self.season}'
@@ -98,8 +98,8 @@ class NFL_Game_Predictor():
             for week in Update_Weeks:
                 print(f'Analyzing {self.season}, Week: {week} Games ...')
                 #Get the Raw Data we need
-                self.Raw_Game_Data = self.Get_Game_Info(self.raw_data_path, week)       
-                self.Processed_Game_Data = self.Process_Game_Info(self.raw_data_path, week, self.Raw_Game_Data)       
+                self.Raw_Game_Data = self.Get_Game_Info(self.raw_data_path, week)
+                self.Processed_Game_Data = self.Process_Game_Info(self.raw_data_path, week, self.Raw_Game_Data)
                 self.Calculated_Game_Data = self.Calculate_Game_Info(self.raw_data_path, week, self.Processed_Game_Data)
                 self.Spread_Targets = self.Picking_Info(self.raw_data_path, week, self.Calculated_Game_Data)
             #Save Final Copy for further analysis
@@ -114,8 +114,9 @@ class NFL_Game_Predictor():
         for season in range(min_season,self.season+1):
             season_df = pd.read_csv(f'{project_path}/raw data/{season}/Season Game Data.csv')
             season_dfs.append(season_df)
-        season_df = pd.concat(season_dfs) #Concat the list of dfs into a season df
-        season_df.to_csv(f'{project_path}/raw data/All Game Data.csv', index=False)
+        seasons_df = pd.concat(season_dfs) #Concat the list of dfs into a season df
+        if self.updateType == 'Historical':
+            seasons_df.to_csv(f'{project_path}/raw data/All Game Data.csv', index=False)
 
     def Make_Folder(self, new_path):
         data_exists = False
@@ -127,7 +128,7 @@ class NFL_Game_Predictor():
             if len(files) > 1:
                 data_exists = True
         return data_exists
-    
+
     def Save_DF(self, df, path_name):
         df.to_csv(path_name, index=False)
 
@@ -144,10 +145,10 @@ class NFL_Game_Predictor():
     def Picking_Info(self, raw_data_path, week, df):
         #Save the df passed in for picking after
         new_picks_df = df
-        self.User_Message('Determining Spread Targets For Each Game ...')        
+        self.User_Message('Determining Spread Targets For Each Game ...')
         #Output the target spread range for each game
         #sort by date so output is better
-        df = df.sort_values(by=['Day', 'Time'], ascending=[0,1])  
+        df = df.sort_values(by=['Day', 'Time'], ascending=[0,1])
         #Only keep the Away Teams' rows  SO DONT HAVE 2 ENTRIES FOR EACH GAME
         df = df[df.Home_Team == 0]
         predictionDF = pd.DataFrame()
@@ -171,16 +172,16 @@ class NFL_Game_Predictor():
                 formated_spreads.append(f'{Teams[game]} at {spread}')
             elif float(spread) > 0:
                 # s = spread.split('-')[-1]
-                formated_spreads.append(f'{Opponents[game]} at -{spread}')   
+                formated_spreads.append(f'{Opponents[game]} at -{spread}')
             else:
-                formated_spreads.append('Pick em Game')     
-            #Always write wrt the favorite    
+                formated_spreads.append('Pick em Game')
+            #Always write wrt the favorite
             if float(EGO) >= 0:
                 formated_EGOs.append(f'{Teams[game]} wins by {EGO}')
             elif float(EGO) < 0:
                 ego = str(EGO).split('-')[-1]
                 formated_EGOs.append(f'{Opponents[game]} wins by {ego}')
-            
+
             #PART 2 - Determine and Get the Bet Recommendation
             targets = target_spreads[game]
             closest_target = 100 #some big number
@@ -219,11 +220,11 @@ class NFL_Game_Predictor():
                 Results[game] = 'Push'
             else:
                 Results[game] = '-'
-        
+
         #Put it all together
         for pos, s in enumerate(spreads):
            spreads[pos]=float(s)
-        predictionDF['Spread'] = formated_spreads 
+        predictionDF['Spread'] = formated_spreads
         predictionDF['EGO'] = formated_EGOs
         predictionDF['Spread Target'] = predictions
         predictionDF['Pick'] =  list(df['Pick'])
@@ -315,7 +316,7 @@ class NFL_Game_Predictor():
         #Delete Date, Unnamed: 7, PtsW, PtsL, YdsW, TOW, YdsL, TOL
         dropCols = ['Date', 'Unnamed: 7', 'Points For', 'Points Against', 'YdsW', 'TOW', 'YdsL', 'TOL']
         for col in dropCols:
-            df.drop(f'{col}', axis=1, inplace=True)        
+            df.drop(f'{col}', axis=1, inplace=True)
         #Re-Order Columns - Put Season column to begining
         cols = list(df)
         cols = cols[-3:-2] + cols[:-3] + cols[-2:]
@@ -336,13 +337,13 @@ class NFL_Game_Predictor():
             new_cols = [x if x != 'Weighted DVOA' else 'WDVOA' for x in cols] #Rename the WDVOA column
             WDVOA_DF.columns = new_cols
             WDVOA_DF = WDVOA_DF.sort_values(by='TEAM', ascending=True)
-            # self.Save_DF(WDVOA_DF, f'{week_path}/DVOA Data.csv') 
+            # self.Save_DF(WDVOA_DF, f'{week_path}/DVOA Data.csv')
         except: #IF NEED TO GET NEW DVOA DATA
             print(f'NEED TO PLACE DOWNLOADED DATA INTO THE WEEK {week} FOLDER')
             # game_info_collector = Prediction_Helper.Game_Info_Parser(week, self.season, raw_data_path)
             # WDVOA_DF = game_info_collector.WDVOA_DF
             # print(WDVOA_DF)
-            # self.Save_DF(WDVOA_DF, f'{week_path}/DVOA Data.csv') 
+            # self.Save_DF(WDVOA_DF, f'{week_path}/DVOA Data.csv')
 
         #Schedule+Spread DATA
         self.User_Message(f'Retrieving Scheudle and Scores for week {week} ...')

@@ -37,7 +37,7 @@ app.layout = html.Div([
     #             'color': colours['title']
     #         }
     #     ),
-        html.H4('A Data Based Model to Pick Games and Win $$$', 
+        html.H4('A Data Based Model to Pick Games and Win $$$',
             style={
             'textAlign': 'center',
             'color': colours['font']
@@ -90,7 +90,7 @@ app.layout = html.Div([
                 id='column_update',
                 interval=100),
             ], className="six columns"),#,style={'width':'50%','margin-left':10,'margin-right':10,'max-width':50000})
-    ], className="row"),  
+    ], className="row"),
     # html.Div([
     #     html.Button('Save', id='save-button', style={'margin-left': 25}),
     #     html.P(id='editable-table-hidden', style={'display':'none'}),
@@ -125,7 +125,7 @@ app.layout = html.Div([
                 id='data-update',
                 interval=100),
             ], className="twelve columns",style={'width':'80%', 'height':'100ex', 'margin-left':175,'margin-right':175,'max-width':50000})
-    ], className="row")        
+    ], className="row")
 ])
 
 # @app.callback(Output('save-button-hidden', 'children'),
@@ -133,7 +133,7 @@ app.layout = html.Div([
 # def clicks(n_clicks):
 #     Spread_Targets = pd.read_csv(f'{project_path}/raw data/{season}/Week {week}/Spread Targets.csv')
 #     Spread_Targets = Spread_Targets.drop('Pick', 1)
-#     Spread_Targets.columns = ['Game', 'Spread', 'Expected Game Outcome', 'Pick', 'Result'] 
+#     Spread_Targets.columns = ['Game', 'Spread', 'Expected Game Outcome', 'Pick', 'Result']
 #     print(n_clicks)
 #     try:
 #         int(n_clicks)
@@ -151,7 +151,7 @@ app.layout = html.Div([
 def weekly_bets(week):
     Spread_Targets = pd.read_csv(f'{project_path}/raw data/{season}/Week {week}/Spread Targets.csv')
     Spread_Targets = Spread_Targets.drop('Pick', 1)
-    Spread_Targets.columns = ['Game', 'Spread', 'Expected Game Outcome', 'Pick', 'Result']    
+    Spread_Targets.columns = ['Game', 'Spread', 'Expected Game Outcome', 'Pick', 'Result']
     Results = []
     Results.append(dash_table.DataTable(
         id='table',
@@ -179,7 +179,7 @@ def weekly_bets(week):
     events=[dash.dependencies.State('column-update', 'interval')]
     )
 def season_data(data_names):
-    Data = Dashboard_setup.Data(project_path, season)
+    # Data = Dashboard_setup.Data(project_path, season)
     Results = []
     # for res, data in enumerate(Data):
     Make_Figure = frontend.Plots()
@@ -197,7 +197,7 @@ def season_data(data_names):
     events=[dash.dependencies.State('data-update', 'interval')]
     )
 def historical_data(data_names):
-    Data = Dashboard_setup.Data(project_path, season)
+    # Data = Dashboard_setup.Data(project_path, season)
     Results = []
     # for res, data in enumerate(Data):
     Make_Figure = frontend.Plots()

@@ -9,7 +9,7 @@ class Plots():
     def Season_Results(self, Prediction_Stats, ycols):
         fig = go.Figure()
         for col in ycols:
-            if 'Season' in col: 
+            if 'Season' in col:
                 fig.add_trace(go.Scatter(x=list(Prediction_Stats['Week']), y=list(Prediction_Stats[col]),
                     # text=list(Prediction_Stats[col]),
                     # textposition='auto',
@@ -43,6 +43,7 @@ class Plots():
         accs = []
         legend_data = []
         pickResults=[-1, 1]
+        print(Data.head())
         for val in xvals:
             val_data = Data.loc[(Data[xcol] == val) & (Data['Make Pick'] == 1) & (Data['Pick Right'].isin(pickResults))] #Get the Picks Made for that Season/Week/Team
             picks = len(val_data['Make Pick']) #Total Number of Picks Made
@@ -85,7 +86,7 @@ class Plots():
             accuracy_data.append(avg_acc)
             counter+=1
         legend_data += [legend for i in range(counter)]
-            
+
         #Store results into final dataframe
         results_df['Betting Accuracy'] = accuracy_data
         results_df[xcol] = avg_ego_data

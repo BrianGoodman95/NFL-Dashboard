@@ -7,9 +7,14 @@ from parsers.setup import Directory_setup, Dashboard_setup
 setup = Directory_setup.Create_Directories()
 project_path = setup.project_path
 dir_path = pathlib.Path().absolute()
-if 'home/BGoodman95' in str(dir_path): #The Python Anywhere Dashboard
+if 'home/BGoodman95/' in str(dir_path): #The Python Anywhere Dashboard
     proj_path_parts = project_path.split('NFL-Dashboard/N')
     project_path = f'{proj_path_parts[0]}N{proj_path_parts[1]}'
+    print(project_path)
+elif 'home/BGoodman95' in str(dir_path): #The Python Anywhere Dashboard
+    proj_path_parts = project_path.split('NFL-Dashboard/N')
+    print(dir_path)
+    project_path = f'{dir_path}/NFL-Dashboard/data'
     print(project_path)
 
 season, week = Dashboard_setup.This_Week()

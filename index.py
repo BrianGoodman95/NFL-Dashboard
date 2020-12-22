@@ -12,6 +12,7 @@ from app import app
 from app import server
 
 import pandas as pd
+import os
 
 import frontend
 from parsers.setup import Directory_setup, Dashboard_setup
@@ -19,10 +20,14 @@ setup = Directory_setup.Create_Directories()
 project_path = setup.project_path
 
 season, week = Dashboard_setup.This_Week()
+if os.path.exists(os.path.join(os.getcwd(), f'{project_path}/raw data/{season}/Week {week}', 'Spread Targets.csv')): #If the latest week has data ready
+    Weeks = [w for w in range(6,week+1)]
+else:
+    Weeks = [w for w in range(6,week)] #Don't display this week
+
 Data = Dashboard_setup.Data(project_path, season)
 
 colours = Dashboard_setup.colours
-Weeks = [w for w in range(6,week+1)]
 
 # app.layout = html.Div(style={'backgroundColor': colours['background']}, children=[
 app.layout = html.Div([

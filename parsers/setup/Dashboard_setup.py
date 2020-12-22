@@ -12,6 +12,7 @@ def This_Week():
     w = week_num - first_week
     if w <= 0:
         w = 52-first_week + w
+    # w = 16 #Manual Override
     return int(year), int(w)
 
 def Data(path, season):
@@ -19,7 +20,11 @@ def Data(path, season):
     data_path = f'{path}'
 
     #Week Data
-    Spread_Targets = pd.read_csv(f'{data_path}/raw data/{season}/Week {week}/Spread Targets.csv')
+    #Try to get latest weeks data, otherwise get last weeks data
+    try:
+        Spread_Targets = pd.read_csv(f'{data_path}/raw data/{season}/Week {week}/Spread Targets.csv')
+    except:# FileNotFoundError:
+        Spread_Targets = pd.read_csv(f'{data_path}/raw data/{season}/Week {week-1}/Spread Targets.csv')
     Spread_Targets = Spread_Targets.drop('Pick', 1)
     Spread_Targets.columns = ['Game', 'Spread', 'Expected Game Outcome', 'Pick', 'Result']
 

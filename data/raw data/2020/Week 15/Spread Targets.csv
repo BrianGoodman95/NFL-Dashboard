@@ -1,17 +1,17 @@
 Game,Spread,EGO,Spread Target,Pick,Result
 LAC @ LV,LV at -3.5,LV wins by 6.13,LV (at -4.5 or better),LV,Incorrect
-CHI @ MIN,MIN at -3.0,MIN wins by 0.84,CHI (at +2.5 or better),CHI,-
-DET @ TEN,TEN at -8.5,TEN wins by 7.01,Too Close To Call,,-
-HOU @ IND,IND at -7.5,IND wins by 8.18,Too Close To Call,,-
-JAX @ BAL,BAL at -12.5,BAL wins by 9.64,JAX (at +11.5 or better),JAX,-
-NE @ MIA,NE at -1.0,MIA wins by 6.26,MIA (at +4.5 or better),MIA,-
-SEA @ WAS,SEA at -6.0,SEA wins by 0.79,Unreliable Prediction Due To QB Injury,,-
-SF @ DAL,SF at -4.0,SF wins by 1.32,DAL (at +3.0 or better),DAL,-
-TB @ ATL,TB at -6.0,TB wins by 4.5,ATL (at +6.0 or better),ATL,-
-NYJ @ LAR,LAR at -17.0,LAR wins by 14.82,NYJ (at +16.5 or better),NYJ,-
-PHI @ ARI,ARI at -6.0,ARI wins by 5.88,Too Close To Call,,-
-KC @ NO,KC at -2.5,NO wins by 2.96,NO (at +1.0 or better),NO,-
-CLE @ NYG,CLE at -6.5,NYG wins by 0.7,NYG (at +1.0 or better),NYG,-
+CHI @ MIN,MIN at -3.0,MIN wins by 0.84,CHI (at +2.5 or better),CHI,Correct
+DET @ TEN,TEN at -8.5,TEN wins by 7.01,Too Close To Call,,Incorrect
+HOU @ IND,IND at -7.5,IND wins by 8.18,Too Close To Call,,Incorrect
+JAX @ BAL,BAL at -12.5,BAL wins by 9.64,JAX (at +11.5 or better),JAX,Incorrect
+NE @ MIA,NE at -1.0,MIA wins by 6.26,MIA (at +4.5 or better),MIA,Correct
+SEA @ WAS,SEA at -6.0,SEA wins by 0.79,Unreliable Prediction Due To QB Injury,,Correct
+SF @ DAL,SF at -4.0,SF wins by 1.32,DAL (at +3.0 or better),DAL,Correct
+TB @ ATL,TB at -6.0,TB wins by 4.5,ATL (at +6.0 or better),ATL,Correct
+NYJ @ LAR,LAR at -17.0,LAR wins by 14.82,NYJ (at +16.5 or better),NYJ,Correct
+PHI @ ARI,ARI at -6.0,ARI wins by 5.88,Too Close To Call,,Incorrect
+KC @ NO,KC at -2.5,NO wins by 2.96,NO (at +1.0 or better),NO,Incorrect
+CLE @ NYG,CLE at -6.5,NYG wins by 0.7,NYG (at +1.0 or better),NYG,Incorrect
 BUF @ DEN,BUF at -6.0,BUF wins by 6.77,Too Close To Call,,Correct
 CAR @ GB,GB at -9.5,GB wins by 7.45,CAR (at +9.0 or better),CAR,Correct
-PIT @ CIN,PIT at -14.0,PIT wins by 9.95,Unreliable Prediction Due To QB Injury,,-
+PIT @ CIN,PIT at -14.0,PIT wins by 9.95,Unreliable Prediction Due To QB Injury,,Correct

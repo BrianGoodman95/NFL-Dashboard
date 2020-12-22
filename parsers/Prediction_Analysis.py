@@ -44,14 +44,14 @@ class Prediction_Analyzer():
         #See if need to analyze the week or already done
         self.Analyzed_Results, min_week = self.Check_Results_Exist(self.final_csvName)
         #Update any Data Needed
-        for week in range(min_week,16):
+        for week in range(min_week,17):
             # print(f'Analyzing Week: {week} Picks ...')
             try:
                 #Get the Raw Data we need
                 self.Calculated_Game_Data = pd.read_csv(f'{self.raw_data_path}/raw data/{current_season}/Week {week}/Weekly Picks.csv')
                 self.Analyze_Data(self.Calculated_Game_Data, self.raw_data_path, week)
             except FileNotFoundError:
-                # print('ERROR')
+                print('ERROR')
                 break
         #Drop last row since is incomplete Data
         self.Analyzed_Results = self.Analyzed_Results[:-1]
